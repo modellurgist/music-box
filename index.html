@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+      .jumbotron {
+        background-color: #e6ffe6;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="jumbotron">
+      <h1>Let's Play Some Music !</h1>
+    </div>
+
+    <div class="row">
+      <div id="music-box-elm-app"></div>
+    </div>
+
+    <script src="https://tonejs.github.io/build/Tone.min.js"></script>
+    <script src="elm.js"></script>
+
+    <script>
+      var elementForApp = document.getElementById("music-box-elm-app");
+      var app = Elm.MusicBox.embed(elementForApp);
+
+      app.ports.play.subscribe(
+        function(data) {
+          console.log(data);
+          var synth = new Tone.Synth().toMaster();
+          synth.triggerAttackRelease(data.tone, data.duration);
+        }
+      );
+    </script>
+  </body>
+</html>
